@@ -13,5 +13,5 @@ import java.util.Collection;
 public interface TransactionServiceInterface {
     Collection<Transaction> getAllTransactions(int cardId) throws SQLException, ClassNotFoundException, IOException;
     String swipeIn(int cardId, int sourceStationId) throws SQLException, ClassNotFoundException, IOException, InsufficientBalanceException, InvalidStationException, InvalidSwipeInException;
-    Transaction swipeOut(int cardId, int destinationStationId) throws SQLException, ClassNotFoundException, IOException, InvalidSwipeInException, InsufficientBalanceException, InvalidSwipeOutException, InvalidStationException;
+    Transaction swipeOut(int cardId, int destinationStationId) throws InvalidSwipeInException, InvalidSwipeOutException, InvalidStationException;
 }

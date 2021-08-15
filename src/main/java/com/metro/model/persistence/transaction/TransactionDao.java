@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository("transactionDao")
 public class TransactionDao implements TransactionDaoInterface{
@@ -32,8 +33,12 @@ public class TransactionDao implements TransactionDaoInterface{
 
     @Override
     public Transaction getLastTransaction(int cardId) {
-        return jdbcTemplate.query("SELECT t.transaction_id, t.card_id, t.source_station_id, s.station_name AS source_station_name, t.destination_station_id, d.station_name AS destination_station_name, t.fare, t.fine, t.swipe_in_time_stamp, t.swipe_out_time_stamp, t.duration FROM transactions t LEFT JOIN stations s ON t.source_station_id = s.station_id LEFT JOIN stations d ON t.destination_station_id = d.station_id WHERE card_id = ? ORDER BY transaction_id DESC LIMIT 1;", new TransactionRowMapper(), cardId ).get(0);
+        List<Transaction> transactions = jdbcTemplate.query("SELECT t.transaction_id, t.card_id, t.source_station_id, s.station_name AS source_station_name, t.destination_station_id, d.station_name AS destination_station_name, t.fare, t.fine, t.swipe_in_time_stamp, t.swipe_out_time_stamp, t.duration FROM transactions t LEFT JOIN stations s ON t.source_station_id = s.station_id LEFT JOIN stations d ON t.destination_station_id = d.station_id WHERE card_id = ? ORDER BY transaction_id DESC LIMIT 1;", new TransactionRowMapper(), cardId );
+        if (transactions.size() > 0)
+            return transactions.get(0);
+        else return null;
     }
+
     @Override
     public int getTransactionDuration(int transactionId) {
         Integer duration = jdbcTemplate.queryForObject("SELECT TIMESTAMPDIFF(MINUTE , swipe_in_time_stamp, swipe_out_time_stamp) AS duration FROM transactions WHERE transaction_id = ?;", Integer.class, transactionId);

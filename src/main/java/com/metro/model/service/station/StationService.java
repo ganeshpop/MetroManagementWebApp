@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collection;
 
 @Service("stationService")
@@ -21,7 +19,7 @@ public class StationService implements StationServiceInterface{
     }
 
     @Override
-    public Collection<Station> getAllStations() throws SQLException, ClassNotFoundException, IOException {
+    public Collection<Station> getAllStations() {
         return stationDao.getAllStations();
     }
 }

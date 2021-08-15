@@ -2,21 +2,17 @@
   Created by IntelliJ IDEA.
   User: venom
   Date: 8/15/2021
-  Time: 3:11 AM
+  Time: 10:29 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Swipe In Status</title>
 </head>
 <body>
-<h3>Enter Your Details</h3>
-<form action="./verifyCard" method="post">
-        Card ID : <input type="text" name="card"><br><br>
-        Password : <input type="password" name="password"><br><br>
-    <input type="submit" value="Login">
-</form>
+<h3>${message}</h3>
+<a href="menu" >Go Back to Menu</a><br><br>
 <a href="./" >Go Back to Home</a><br><br>
 </body>
 </html>

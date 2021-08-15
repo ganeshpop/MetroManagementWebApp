@@ -50,20 +50,18 @@ public class TransactionService implements TransactionServiceInterface {
         if(stationDao.isAStation(sourceStationId)) {
             if(cardDao.getCardDetails(cardId).getBalance() >= 20) {
                 Transaction lastTransaction =  transactionDao.getLastTransaction(cardId);
-                if (lastTransaction.getTransactionId() == 0 || lastTransaction.getDestinationStation() != null) {
+                if (lastTransaction == null || lastTransaction.getDestinationStation() != null) {
                     transactionDao.createTransaction(new Transaction(cardId, new Station(sourceStationId)));
                     return stationDao.getStation(sourceStationId);
                 }
                 else throw new InvalidSwipeInException();
             } else throw new InsufficientBalanceException();
-        } else {
-            throw new InvalidStationException();
-        }
+        } else throw new InvalidStationException();
 
     }
 
     @Override
-    public Transaction swipeOut(int cardId, int destinationStationId) throws SQLException, ClassNotFoundException, IOException, InvalidSwipeOutException, InvalidStationException {
+    public Transaction swipeOut(int cardId, int destinationStationId) throws InvalidSwipeOutException, InvalidStationException {
         if(stationDao.isAStation(destinationStationId)){
             Transaction lastTransaction =  transactionDao.getLastTransaction(cardId);
             if (lastTransaction.getSourceStation() != null && lastTransaction.getDestinationStation() == null) {
@@ -78,7 +76,7 @@ public class TransactionService implements TransactionServiceInterface {
         } else throw new InvalidStationException();
         return transactionDao.getLastTransaction(cardId);
     }
-    public int getFine(int transactionId) throws SQLException, ClassNotFoundException, IOException {
+    public int getFine(int transactionId) {
         int duration =  transactionDao.getTransactionDuration(transactionId);
         int extraHours;
         if (duration >= 0) {

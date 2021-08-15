@@ -17,9 +17,9 @@
 <a href="getTransactions">View Travel History</a><br><br>
 <a href="getCard">View Card Details</a><br><br>
 <a href="rechargeCard">Recharge Card</a><br><br>
-<a href="login">Swipe In</a><br><br>
-<a href="login">Swipe Out</a><br><br>
-<a href="login">Change Password</a><br><br>
+<a href="swipeIn">Swipe In</a><br><br>
+<a href="swipeOut">Swipe Out</a><br><br>
+<a href="changePassword">Change Password</a><br><br>
 <a href="./">Log Out</a><br><br>
 
 </body>
