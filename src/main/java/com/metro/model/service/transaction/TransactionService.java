@@ -42,11 +42,11 @@ public class TransactionService implements TransactionServiceInterface {
     }
 
     @Override
-    public Collection<Transaction> getAllTransactions(int cardId) throws SQLException, ClassNotFoundException, IOException {
+    public Collection<Transaction> getAllTransactions(int cardId)  {
         return transactionDao.getAllTransactions(cardId);
     }
     @Override
-    public String swipeIn(int cardId, int sourceStationId) throws SQLException, ClassNotFoundException, IOException, InsufficientBalanceException, InvalidStationException, InvalidSwipeInException {
+    public String swipeIn(int cardId, int sourceStationId) throws InsufficientBalanceException, InvalidStationException, InvalidSwipeInException {
         if(stationDao.isAStation(sourceStationId)) {
             if(cardDao.getCardDetails(cardId).getBalance() >= 20) {
                 Transaction lastTransaction =  transactionDao.getLastTransaction(cardId);

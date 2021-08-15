@@ -23,12 +23,12 @@ public class LoginSignUpControllers {
 
     @RequestMapping("login")
     public ModelAndView loginController() {
-        return new ModelAndView("login");
+        return new ModelAndView("metroLogin");
     }
 
     @RequestMapping("signup")
     public ModelAndView signupController() {
-        return new ModelAndView("signup");
+        return new ModelAndView("metroSignUp");
     }
 
 
@@ -41,22 +41,15 @@ public class LoginSignUpControllers {
             int intCardId = Integer.parseInt(cardId);
             if (cardService.isACard(intCardId)) {
                 if (cardService.validatePassword(intCardId, password)) {
+                    cardService.setCurrentCardId(intCardId);
                     modelAndView.addObject("cardId", cardId);
                     modelAndView.addObject("message", "You Are Logged In");
-                    modelAndView.setViewName("menu");
-                } else {
-                    modelAndView.addObject("message", "Invalid Password, Try Again");
-                    modelAndView.setViewName("output");
-                }
-            } else {
-                modelAndView.addObject("message", "Invalid Card");
-                modelAndView.setViewName("output");
-            }
-        } else {
-            modelAndView.addObject("message", "Card ID Only Contains Integers");
-            modelAndView.setViewName("output");
-        }
-        return modelAndView;
+                    modelAndView.setViewName("metroMenu");
+                    return modelAndView;
+                } else return new ModelAndView("metroLoginOutput","message", "Invalid Password, Try Again");
+            } else return new ModelAndView("metroLoginOutput","message", "Invalid Card");
+        } else return new ModelAndView("metroLoginOutput","message", "Card ID Only Contains Integers");
+
     }
 
 
@@ -72,26 +65,15 @@ public class LoginSignUpControllers {
                     int intCardId = cardService.addCard(new Card("Basic",Integer.parseInt(initialBalance)));
                     if (intCardId > 0) {
                         if (cardService.setPassword(intCardId, passwordOne)) {
+                            cardService.setCurrentCardId(intCardId);
                             modelAndView.addObject("message", "Card Created Successfully, Your Card ID is " + intCardId + " Now You Can Use Metro Services");
-                            modelAndView.setViewName("menu");
+                            modelAndView.setViewName("metroMenu");
                         }
-                    } else {
-                        modelAndView.addObject("message", "Card Creation Failed");
-                        modelAndView.setViewName("createCardOutput");
-                    }
-                } else {
-                    modelAndView.addObject("message", "Passwords Didnt Match, Try Again");
-                    modelAndView.setViewName("createCardOutput");
-                }
-            } else {
-                modelAndView.addObject("message", "Minimum Card Balance for New Users is 100/- ");
-                modelAndView.setViewName("createCardOutput");
-            }
-        } else {
-            modelAndView.addObject("message", "Only Integers Allowed");
-            modelAndView.setViewName("createCardOutput");
-        }
-        return modelAndView;
+                        return modelAndView;
+                    } else return new ModelAndView("createCardOutput","message", "Card Creation Failed");
+                } else return new ModelAndView("createCardOutput","message", "Passwords Didnt Match, Try Again");
+            } else return new ModelAndView("createCardOutput","message", "Minimum Card Balance for New Users is 100/- ");
+        } else return new ModelAndView("createCardOutput","message", "Only Integers Allowed");
     }
 
 

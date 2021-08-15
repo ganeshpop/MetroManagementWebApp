@@ -10,6 +10,15 @@ import org.springframework.stereotype.Service;
 @Service("cardService")
 public class CardService implements  CardServiceInterface{
     CardDaoInterface cardDao;
+    private int currentCardId;
+
+    public int getCurrentCardId() {
+        return currentCardId;
+    }
+
+    public void setCurrentCardId(int currentCardId) {
+        this.currentCardId = currentCardId;
+    }
 
     @Autowired
     @Qualifier("cardDao")

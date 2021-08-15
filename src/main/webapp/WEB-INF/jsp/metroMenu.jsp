@@ -14,11 +14,11 @@
 <h3>${message}</h3>
 <h3>Welcome To City Metro User ${cardId}</h3>
 
-<a href="login">View Travel History</a><br><br>
-<a href="login">View Card Details</a><br><br>
-<a href="login">Recharge Card</a><br><br>
+<a href="getTransactions">View Travel History</a><br><br>
+<a href="getCard">View Card Details</a><br><br>
+<a href="rechargeCard">Recharge Card</a><br><br>
 <a href="login">Swipe In</a><br><br>
-<a href="login">Swipe In</a><br><br>
+<a href="login">Swipe Out</a><br><br>
 <a href="login">Change Password</a><br><br>
 <a href="./">Log Out</a><br><br>
 

@@ -13,7 +13,7 @@
 <body>
 
 <h3>Welcome</h3>
-<h3>Enter Your Details</h3>
+<h3>Enter The Following Details</h3>
 
 <form action="./createCard" method="post">
     Enter initial Balance(>100): <input type="text" name="cardBalance"><br><br>
@@ -21,5 +21,7 @@
     Conform Password : <input type="password" name="conformationPassword"><br><br>
     <input type="submit" value="Verify">
 </form>
+<a href="menu" >Go Back to Menu</a><br><br>
+<a href="./" >Go Back to Home</a><br><br>
 </body>
 </html>
